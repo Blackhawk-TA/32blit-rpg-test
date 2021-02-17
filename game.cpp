@@ -37,7 +37,7 @@ std::function<Mat3(uint8_t)> level_line_interrupt_callback = [](uint8_t y) -> Ma
 // setup your game here
 //
 void init() {
-	set_screen_mode(ScreenMode::hires);
+	set_screen_mode(ScreenMode::hires); //lores is zoomed
 	screen.sprites = SpriteSheet::load(asset_objects);
 
 	level_data = (uint8_t *)malloc(level_width * level_height);
@@ -58,7 +58,6 @@ void init() {
 			level_data[dst] = tmx->data[src];
 		}
 	}
-
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -69,7 +68,6 @@ void init() {
 // amount if milliseconds elapsed since the start of your game
 //
 void render(uint32_t time) {
-
 	// clear the screen -- screen is a reference to the frame buffer and can be used to draw all things with the 32blit
 	screen.clear();
 
@@ -83,5 +81,11 @@ void render(uint32_t time) {
 // This is called to update your game state. time is the
 // amount if milliseconds elapsed since the start of your game
 //
+void update_camera(uint32_t time) {
+	camera = Mat3::identity();
+//	camera *= Mat3::translation(Vec2(0, 0)); // offset to middle of world
+//	camera *= Mat3::translation(Vec2(-screen_width / 2, -screen_height / 2)); // transform to centre of framebuffer
+}
 void update(uint32_t time) {
+	update_camera(time);
 }

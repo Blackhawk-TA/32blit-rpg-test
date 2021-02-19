@@ -1,5 +1,4 @@
-#include <string>
-#include <string.h>
+#include <cstring>
 #include <memory>
 #include <cstdlib>
 #include "game.hpp"

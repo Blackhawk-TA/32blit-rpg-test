@@ -84,6 +84,12 @@ void render(uint32_t time) {
 	}
 }
 
+void update_camera(uint32_t time) {
+	camera = Mat3::identity();
+//	camera *= Mat3::translation(Vec2(0, 0)); // offset to middle of world
+//	camera *= Mat3::translation(Vec2(-screen_width / 2, -screen_height / 2)); // transform to centre of framebuffer
+}
+
 ///////////////////////////////////////////////////////////////////////////
 //
 // update(time)
@@ -91,11 +97,6 @@ void render(uint32_t time) {
 // This is called to update your game state. time is the
 // amount if milliseconds elapsed since the start of your game
 //
-void update_camera(uint32_t time) {
-	camera = Mat3::identity();
-//	camera *= Mat3::translation(Vec2(0, 0)); // offset to middle of world
-//	camera *= Mat3::translation(Vec2(-screen_width / 2, -screen_height / 2)); // transform to centre of framebuffer
-}
 void update(uint32_t time) {
 	update_camera(time);
 }

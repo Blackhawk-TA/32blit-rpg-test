@@ -5,10 +5,8 @@
 assets.cpp:
   prefix: asset_
 
-  assets/objects.png:
-    name: objects
-  assets/characters.png:
-    name: characters
+  assets/sprites.png:
+    name: sprites
   assets/map.tmx:
     name: map
     empty_tile: 0

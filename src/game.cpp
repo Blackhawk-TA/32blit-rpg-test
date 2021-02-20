@@ -63,7 +63,7 @@ void draw_background() {
 //
 void init() {
 	set_screen_mode(ScreenMode::hires); //lores is zoomed
-	screen.sprites = SpriteSheet::load(asset_objects);
+	screen.sprites = Surface::load(asset_sprites);
 
 	draw_background();
 }

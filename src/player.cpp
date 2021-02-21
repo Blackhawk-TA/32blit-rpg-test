@@ -11,9 +11,11 @@ constexpr uint8_t tile_set_x_pos = 15;
 constexpr uint8_t tile_set_y_pos = 8;
 constexpr uint8_t player_width = 1;
 constexpr uint8_t player_height = 1;
+constexpr uint8_t tile_size = 8;
 
-Player::Player(uint16_t screen_width, uint16_t screen_height) {
-	Player::screen_location = Point(screen_width / 2, screen_height / 2);
+Player::Player() {
+	//TODO Player sits not perfectly on the tile
+	Player::screen_location = Point(screen.bounds.w / 2, screen.bounds.h / 2 - tile_size / 2);
 	Player::screen_location += Point(1, 1);
 }
 
@@ -44,6 +46,7 @@ void Player::move(Point player_movement) {
 }
 
 void Player::draw() {
+	//TODO find better way to select sprite from tile set
 	screen.sprite(Rect(tile_set_x_pos, tile_set_y_pos, player_width, player_height), screen_location);
 }
 

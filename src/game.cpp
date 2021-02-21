@@ -7,9 +7,6 @@
 
 using namespace blit;
 
-constexpr uint16_t screen_width = 160;
-constexpr uint16_t screen_height = 120;
-
 constexpr uint16_t level_width = 64;
 constexpr uint16_t level_height = 64;
 constexpr uint32_t level_size = level_width * level_height;
@@ -64,12 +61,12 @@ void draw_background() {
 // setup your game here
 //
 void init() {
-	set_screen_mode(ScreenMode::lores); //lores is zoomed
+	set_screen_mode(ScreenMode::lores);
 	screen.sprites = Surface::load(asset_sprites);
 
 	draw_background();
 
-	player = new Player(screen_width, screen_height);
+	player = new Player();
 }
 
 ///////////////////////////////////////////////////////////////////////////

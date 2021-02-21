@@ -11,7 +11,7 @@ using namespace blit;
 
 class Player {
 public:
-	explicit Player(uint16_t screen_width, uint16_t screen_height);
+	explicit Player();
 	void draw();
 	void move_up();
 	void move_down();
@@ -19,6 +19,7 @@ public:
 	void move_right();
 	Vec2 update_camera();
 
+//TODO check if this can be removed
 private:
 	Point start_position;
 	Point position; //The position on the grid

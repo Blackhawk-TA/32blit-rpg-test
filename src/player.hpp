@@ -19,9 +19,7 @@ public:
 	void move_right();
 	Vec2 update_camera();
 
-//TODO check if this can be removed
 private:
-	Point start_position;
 	Point position; //The position on the grid
 	Point movement;
 	Point screen_location; //The location in pixel

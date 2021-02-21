@@ -1,5 +1,6 @@
 #include "game.hpp"
 #include "assets.hpp"
+#include "player.hpp"
 #include <cstring>
 #include <memory>
 #include <cstdlib>
@@ -15,6 +16,7 @@ constexpr uint32_t level_size = level_width * level_height;
 
 uint8_t *layer_data[4];
 TileMap *layers[4];
+Player *player;
 
 #pragma pack(push,1)
 struct TMX {
@@ -62,10 +64,12 @@ void draw_background() {
 // setup your game here
 //
 void init() {
-	set_screen_mode(ScreenMode::hires); //lores is zoomed
+	set_screen_mode(ScreenMode::lores); //lores is zoomed
 	screen.sprites = Surface::load(asset_sprites);
 
 	draw_background();
+
+	player = new Player(screen_width, screen_height);
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -82,12 +86,15 @@ void render(uint32_t time) {
 	for (auto & layer : layers) {
 		layer->draw(&screen, Rect(0, 0, screen.bounds.w, screen.bounds.h), level_line_interrupt_callback);
 	}
+
+	player->draw();
 }
 
 void update_camera(uint32_t time) {
 	camera = Mat3::identity();
-//	camera *= Mat3::translation(Vec2(0, 0)); // offset to middle of world
-//	camera *= Mat3::translation(Vec2(-screen_width / 2, -screen_height / 2)); // transform to centre of framebuffer
+
+	Vec2 player_camera = player->update_camera();
+	camera *= Mat3::translation(Vec2(player_camera.x * 8.0f, player_camera.y * 8.0f));
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -98,5 +105,24 @@ void update_camera(uint32_t time) {
 // amount if milliseconds elapsed since the start of your game
 //
 void update(uint32_t time) {
+	static uint32_t last_buttons = 0;
+	static uint32_t changed = 0;
+	changed = buttons ^ last_buttons;
+
+	if (buttons & changed & Button::DPAD_UP) {
+		player->move_up();
+	}
+	if (buttons & changed & Button::DPAD_DOWN) {
+		player->move_down();
+	}
+	if (buttons & changed & Button::DPAD_LEFT) {
+		player->move_left();
+	}
+	if (buttons & changed & Button::DPAD_RIGHT) {
+		player->move_right();
+	}
+
+	last_buttons = buttons;
+
 	update_camera(time);
 }

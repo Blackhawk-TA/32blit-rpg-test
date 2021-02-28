@@ -2,7 +2,7 @@
 // Created by daniel on 20.02.21.
 //
 
-#include "32blit.hpp"
+#include "utils/utils.hpp"
 
 #ifndef RPG_TEST_PLAYER_HPP
 #define RPG_TEST_PLAYER_HPP

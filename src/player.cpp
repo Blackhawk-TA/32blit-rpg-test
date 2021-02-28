@@ -6,17 +6,13 @@
 
 using namespace blit;
 
-constexpr Point size = Point(1, 1);
 constexpr uint8_t tile_set_x_pos = 15;
 constexpr uint8_t tile_set_y_pos = 8;
 constexpr uint8_t player_width = 1;
 constexpr uint8_t player_height = 1;
-constexpr uint8_t tile_size = 8;
 
 Player::Player() {
-	//TODO Player sits not perfectly on the tile
 	Player::screen_location = Point(screen.bounds.w / 2, screen.bounds.h / 2 - tile_size / 2);
-	Player::screen_location += Point(1, 1);
 }
 
 void Player::move_up() {
@@ -50,7 +46,7 @@ void Player::draw() {
 	screen.sprite(Rect(tile_set_x_pos, tile_set_y_pos, player_width, player_height), screen_location);
 }
 
-Vec2 Player::update_camera() {
+Vec2 Player::update_camera() { //TODO rounding issue when moving
 	if(camera.x < position.x) {
 		camera.x += 0.1f;
 	}

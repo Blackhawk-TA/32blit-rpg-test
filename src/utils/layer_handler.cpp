@@ -1,0 +1,77 @@
+//
+// Created by daniel on 28.02.21.
+//
+
+#include <cstring>
+#include "assets.hpp"
+#include "layer_handler.hpp"
+
+constexpr uint8_t layer_count = 4;
+constexpr uint16_t level_width = 64;
+constexpr uint16_t level_height = 64;
+constexpr uint32_t level_size = level_width * level_height;
+
+uint8_t *layer_data[layer_count];
+uint8_t *flags[layer_count];
+TileMap *layers[layer_count];
+
+#pragma pack(push,1)
+struct TMX {
+	char head[4];
+	uint8_t empty_tile;
+	uint16_t width;
+	uint16_t height;
+	uint8_t layers;
+	uint8_t data[];
+};
+#pragma pack(pop)
+
+LayerHandler::LayerHandler(std::function<Mat3(uint8_t)> *level_line_interrupt_callback) {
+	LayerHandler::level_line_interrupt_callback = level_line_interrupt_callback;
+}
+
+void LayerHandler::generate_map() {
+	TMX *tmx = (TMX *)asset_map;
+
+	if(tmx->width > level_width) return;
+	if(tmx->height > level_height) return;
+
+	for(auto i = 0u; i < tmx->layers; i++) {
+		layer_data[i] = (uint8_t *)malloc(level_size);
+		layers[i] = new TileMap((uint8_t *)layer_data[i], nullptr, Size(level_width, level_height), screen.sprites);
+
+		// Load the level data from the map memory
+		memset(layer_data[i], 0, level_size);
+
+		for (auto x = 0u; x < tmx->width; x++) {
+			for (auto y = 0u; y < tmx->height; y++) {
+				auto src = y * tmx->width + x;
+				auto dst = y * level_width + x;
+				layer_data[i][dst] = tmx->data[src + i * level_size];
+			}
+		}
+	}
+}
+
+void LayerHandler::draw_map() {
+	for (auto & layer : layers) {
+		layer->draw(&screen, Rect(0, 0, screen.bounds.w, screen.bounds.h), *level_line_interrupt_callback);
+	}
+}
+
+bool LayerHandler::has_flag(Point p, LayerHandler::TileFlags flag) { //TODO implement
+	uint8_t i = 0;
+	uint8_t tile_id;
+
+	while(i < layer_count) {
+		tile_id = layers[i]->tile_at(p); //TODO check if tile_id fits flag
+
+		i++;
+	}
+
+	return false;
+}
+
+//TODO implement
+void LayerHandler::add_flags(uint8_t tiles[], LayerHandler::TileFlags flag) {
+}

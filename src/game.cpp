@@ -41,10 +41,27 @@ void init() {
 //
 void render(uint32_t time) {
 	// clear the screen -- screen is a reference to the frame buffer and can be used to draw all things with the 32blit
+
+	uint32_t ms_start = now();
 	screen.clear();
 
 	layer_handler->draw_map();
 	player->draw();
+
+	//Draw fps meter
+	uint32_t ms_end = now();
+	screen.alpha = 255;
+	screen.pen = Pen(255, 255, 255, 100);
+	screen.rectangle(Rect(1, 120 - 10, 12, 9));
+	screen.pen = Pen(255, 255, 255, 200);
+	std::string fms = std::to_string(ms_end - ms_start);
+	screen.text(fms, minimal_font, Rect(3, 120 - 9, 10, 16));
+
+	int block_size = 4;
+	for (uint32_t i = 0; i < (ms_end - ms_start); i++) {
+		screen.pen = Pen(i * 5, 255 - (i * 5), 0);
+		screen.rectangle(Rect(i * (block_size + 1) + 1 + 13, screen.bounds.h - block_size - 1, block_size, block_size));
+	}
 }
 
 void update_camera(uint32_t time) {

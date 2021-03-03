@@ -3,6 +3,7 @@
 //
 
 #include "player.hpp"
+#include "utils/layer_handler.hpp"
 
 using namespace blit;
 

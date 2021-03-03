@@ -23,12 +23,11 @@ void init() {
 	set_screen_mode(ScreenMode::lores);
 	screen.sprites = Surface::load(asset_sprites);
 
-	layer_handler = new LayerHandler(&level_line_interrupt_callback);
-	layer_handler->generate_map();
+	LayerHandler::generate_map();
 
-	layer_handler->set_flags(LayerHandler::SOLID, {65, 66, 67, 68, 69, 81, 82, 83, 84, 85, 97, 98, 99, 100, 101, 2, 3, 4, 5, 6, 7, 20});
-	layer_handler->set_flags(LayerHandler::WATER, {32});
-	layer_handler->set_flags(LayerHandler::WALL, {21, 22, 23});
+	LayerHandler::set_flags(LayerHandler::SOLID, {65, 66, 67, 68, 69, 81, 82, 83, 84, 85, 97, 98, 99, 100, 101, 2, 3, 4, 5, 6, 7, 20});
+	LayerHandler::set_flags(LayerHandler::WATER, {32, 113, 114, 115, 116, 117});
+	LayerHandler::set_flags(LayerHandler::WALL, {21, 22, 23});
 
 	player = new Player();
 }
@@ -46,7 +45,7 @@ void render(uint32_t time) {
 	// clear the screen -- screen is a reference to the frame buffer and can be used to draw all things with the 32blit
 	screen.clear();
 
-	layer_handler->draw_map();
+	LayerHandler::draw_map(&level_line_interrupt_callback);
 	player->draw();
 
 	//Draw fps meter

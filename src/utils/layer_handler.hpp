@@ -20,18 +20,10 @@ public:
 		WALL = 2
 	};
 
-	explicit LayerHandler(std::function<Mat3(uint8_t)> *level_line_interrupt_callback);
-	void generate_map();
-	void draw_map();
-	void set_flags(LayerHandler::TileFlags flag, const std::vector<uint8_t> &tiles);
-	bool has_flag(Point p, TileFlags flag);
-
-private:
-	constexpr static uint8_t layer_count = 4;
-	std::function<Mat3(uint8_t)> *level_line_interrupt_callback;
-	std::array<std::vector<uint8_t>, layer_count> flags;
-	uint8_t *layer_data[layer_count]{};
-	TileMap *layers[layer_count]{};
+	static void draw_map(std::function<Mat3(uint8_t)> *level_line_interrupt_callback);
+	static void generate_map();
+	static void set_flags(LayerHandler::TileFlags flag, const std::vector<uint8_t> &tiles);
+	static bool has_flag(Point p, TileFlags flag);
 };
 
 #endif //RPG_TEST_LAYER_HANDLER_HPP

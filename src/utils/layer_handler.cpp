@@ -3,17 +3,13 @@
 //
 
 #include <cstring>
+#include <iostream>
 #include "assets.hpp"
 #include "layer_handler.hpp"
 
-constexpr uint8_t layer_count = 4;
 constexpr uint16_t level_width = 64;
 constexpr uint16_t level_height = 64;
 constexpr uint32_t level_size = level_width * level_height;
-
-uint8_t *layer_data[layer_count];
-uint8_t *flags[layer_count];
-TileMap *layers[layer_count];
 
 #pragma pack(push,1)
 struct TMX {
@@ -51,6 +47,14 @@ void LayerHandler::generate_map() {
 			}
 		}
 	}
+
+	//TODO remove; Letzte zeile wird an den anfang gehängt
+//	for (auto y = 0u; y < tmx->height; y++) {
+//		for (auto x = 0u; x < tmx->width; x++) {
+//			std::cout << std::to_string(layers[0]->tile_at(Point(x, y))) + ", ";
+//		}
+//		std::cout << std::endl;
+//	}
 }
 
 void LayerHandler::draw_map() {
@@ -59,19 +63,28 @@ void LayerHandler::draw_map() {
 	}
 }
 
-bool LayerHandler::has_flag(Point p, LayerHandler::TileFlags flag) { //TODO implement
-	uint8_t i = 0;
+bool LayerHandler::has_flag(Point p, LayerHandler::TileFlags flag) {
+	uint8_t i = layer_count;
+	uint8_t j;
 	uint8_t tile_id;
+	bool flag_found = false;
 
-	while(i < layer_count) {
-		tile_id = layers[i]->tile_at(p); //TODO check if tile_id fits flag
+	while(!flag_found && i > 0) {
+		i--;
+		j = 0;
+		tile_id = layers[i]->tile_at(p);
 
-		i++;
+		while(!flag_found && j < flags[flag].size()) {
+			if (tile_id == flags[flag].at(j) - 1) {
+				flag_found = true;
+			}
+			j++;
+		}
 	}
 
-	return false;
+	return flag_found;
 }
 
-//TODO implement
-void LayerHandler::add_flags(uint8_t tiles[], LayerHandler::TileFlags flag) {
+void LayerHandler::set_flags(LayerHandler::TileFlags flag, const std::vector<uint8_t> &tiles) {
+	flags[flag] = tiles;
 }

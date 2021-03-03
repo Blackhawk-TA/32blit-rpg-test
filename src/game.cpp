@@ -26,8 +26,9 @@ void init() {
 	layer_handler = new LayerHandler(&level_line_interrupt_callback);
 	layer_handler->generate_map();
 
-	//Test function
-	layer_handler->has_flag(Point(0, 0), layer_handler->SOLID);
+	layer_handler->set_flags(LayerHandler::SOLID, {65, 66, 67, 68, 69, 81, 82, 83, 84, 85, 97, 98, 99, 100, 101, 2, 3, 4, 5, 6, 7, 20});
+	layer_handler->set_flags(LayerHandler::WATER, {32});
+	layer_handler->set_flags(LayerHandler::WALL, {21, 22, 23});
 
 	player = new Player();
 }
@@ -40,27 +41,27 @@ void init() {
 // amount if milliseconds elapsed since the start of your game
 //
 void render(uint32_t time) {
-	// clear the screen -- screen is a reference to the frame buffer and can be used to draw all things with the 32blit
+	float ms_start = now();
 
-	uint32_t ms_start = now();
+	// clear the screen -- screen is a reference to the frame buffer and can be used to draw all things with the 32blit
 	screen.clear();
 
 	layer_handler->draw_map();
 	player->draw();
 
 	//Draw fps meter
-	uint32_t ms_end = now();
+	float ms_end = now();
 	screen.alpha = 255;
 	screen.pen = Pen(255, 255, 255, 100);
-	screen.rectangle(Rect(1, 120 - 10, 12, 9));
+	screen.rectangle(Rect(1, 120 - 10, 20, 9));
 	screen.pen = Pen(255, 255, 255, 200);
-	std::string fms = std::to_string(ms_end - ms_start);
+	std::string fms = std::to_string((int)(1/((ms_end - ms_start)/1000)));
 	screen.text(fms, minimal_font, Rect(3, 120 - 9, 10, 16));
 
 	int block_size = 4;
 	for (uint32_t i = 0; i < (ms_end - ms_start); i++) {
 		screen.pen = Pen(i * 5, 255 - (i * 5), 0);
-		screen.rectangle(Rect(i * (block_size + 1) + 1 + 13, screen.bounds.h - block_size - 1, block_size, block_size));
+		screen.rectangle(Rect(i * (block_size + 1) + 1 + 21, screen.bounds.h - block_size - 1, block_size, block_size));
 	}
 }
 

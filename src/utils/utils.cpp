@@ -10,10 +10,14 @@ Point tile(const Point &p) {
 	return Point(p.x / tile_size, p.y / tile_size);
 }
 
+Point pixel(const Point &p) {
+	return Point(p.x * tile_size, p.y * tile_size);
+}
+
 Point world_to_screen(const Point &p) { //TODO implement
 	return Point(
-		0,
-		0
+		p.x + screen.bounds.w,
+		p.y + screen.bounds.h
 	);
 }
 

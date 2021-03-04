@@ -20,9 +20,9 @@ public:
 	Vec2 update_camera();
 
 private:
-	Point position; //The position on the grid
+	Point relative_position; //The position on the grid relative to the starting position
+	Point absolute_position; //The absolut position on the grid
 	Point movement;
-	Point screen_location; //The location in pixel
 	Vec2 camera;
 
 	void move(Point player_movement);

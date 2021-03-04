@@ -5,7 +5,6 @@
 
 using namespace blit;
 
-LayerHandler *layer_handler;
 Player *player;
 
 Mat3 camera;
@@ -28,6 +27,7 @@ void init() {
 	LayerHandler::set_flags(LayerHandler::SOLID, {65, 66, 67, 68, 69, 81, 82, 83, 84, 85, 97, 98, 99, 100, 101, 2, 3, 4, 5, 6, 7, 20});
 	LayerHandler::set_flags(LayerHandler::WATER, {32, 113, 114, 115, 116, 117});
 	LayerHandler::set_flags(LayerHandler::WALL, {21, 22, 23});
+	LayerHandler::set_flags(LayerHandler::OBJECTS, {37});
 
 	player = new Player();
 }

@@ -13,8 +13,8 @@ constexpr uint16_t level_height = 64;
 constexpr uint32_t level_size = level_width * level_height;
 
 std::array<std::vector<uint8_t>, layer_count> flags;
-uint8_t *layer_data[layer_count]{};
-TileMap *layers[layer_count]{};
+uint8_t *layer_data[layer_count];
+TileMap *layers[layer_count];
 
 #pragma pack(push,1)
 struct TMX {
@@ -65,10 +65,15 @@ void LayerHandler::draw_map(std::function<Mat3(uint8_t)> *level_line_interrupt_c
 	}
 }
 
-bool LayerHandler::has_flag(Point p, LayerHandler::TileFlags flag) {
+////
+//
+// Gets the flag of the given tile on its highest layer, ignoring all underlying flags
+//
+uint8_t LayerHandler::get_flag(Point p) {
 	uint8_t i = layer_count;
-	uint8_t j;
+	uint8_t j, k;
 	uint8_t tile_id;
+	uint8_t flag_enum_id = 0;
 	bool flag_found = false;
 
 	while(!flag_found && i > 0) {
@@ -76,15 +81,20 @@ bool LayerHandler::has_flag(Point p, LayerHandler::TileFlags flag) {
 		j = 0;
 		tile_id = layers[i]->tile_at(p);
 
-		while(!flag_found && j < flags[flag].size()) {
-			if (tile_id == flags[flag].at(j) - 1) {
-				flag_found = true;
-			}
+		while (!flag_found && j < flags.size()) {
 			j++;
+			k = 0;
+			while (!flag_found && k < flags[j].size()) {
+				if (tile_id == flags[j].at(k) - 1) {
+					flag_enum_id = j;
+					flag_found = true;
+				}
+				k++;
+			}
 		}
 	}
 
-	return flag_found;
+	return flag_enum_id;
 }
 
 void LayerHandler::set_flags(LayerHandler::TileFlags flag, const std::vector<uint8_t> &tiles) {

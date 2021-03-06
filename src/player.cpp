@@ -52,16 +52,16 @@ void Player::draw() {
 }
 
 Vec2 Player::update_camera() {
-	if(camera.x < camera_offset.x) {
+	if (camera.x < camera_offset.x) {
 		camera.x += velocity;
 	}
-	if(camera.x > camera_offset.x) {
+	if (camera.x > camera_offset.x) {
 		camera.x -= velocity;
 	}
-	if(camera.y < camera_offset.y) {
+	if (camera.y < camera_offset.y) {
 		camera.y += velocity;
 	}
-	if(camera.y > camera_offset.y) {
+	if (camera.y > camera_offset.y) {
 		camera.y -= velocity;
 	}
 

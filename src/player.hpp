@@ -24,8 +24,8 @@ private:
 	const Point tile = Point(15, 8);
 	const float velocity = 0.05f;
 
-	Point camera_offset; //The position on the grid relative to the starting position
-	Point absolute_position; //The absolut position on the grid
+	Point camera_offset;
+	Point absolute_position; //The absolut position of the player on the grid
 	Point movement;
 	Vec2 camera;
 

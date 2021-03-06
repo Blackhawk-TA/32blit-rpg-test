@@ -19,9 +19,9 @@ Point world_to_screen(const Point &p) {
 }
 
 Vec2 world_to_screen(const Vec2 &p) {
-	return Vec2(p.x * tile_size, p.y * tile_size);
+	return Vec2(std::ceil(p.x * tile_size), std::ceil(p.y * tile_size));
 }
 
 Vec2 world_to_screen(const float &x, const float &y) {
-	return Vec2(x * tile_size, y * tile_size);
+	return Vec2(std::ceil(x * tile_size), std::ceil(y * tile_size));
 }

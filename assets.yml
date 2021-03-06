@@ -5,7 +5,7 @@
 assets.cpp:
   prefix: asset_
 
-  assets/spritesgrid.png:
+  assets/spritesheet.png:
     name: sprites
   assets/map.tmx:
     name: map

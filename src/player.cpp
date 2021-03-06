@@ -4,6 +4,7 @@
 
 #include "player.hpp"
 #include "utils/utils.hpp"
+#include "utils/layer_handler.hpp"
 
 using namespace blit;
 
@@ -35,10 +36,10 @@ void Player::move_right() {
 
 void Player::move(Point player_movement) {
 	Point next_position = absolute_position + player_movement;
-//	if (LayerHandler::get_flag(next_position) == LayerHandler::SOLID) {
+	if (LayerHandler::get_flag(next_position) == LayerHandler::SOLID) {
 		camera_offset += movement;
 		absolute_position = next_position;
-//	}
+	}
 
 	movement = Point(0, 0);
 }

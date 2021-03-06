@@ -25,7 +25,7 @@ void init() {
 
 	LayerHandler::generate_map();
 
-	LayerHandler::set_flags(LayerHandler::SOLID, {64, 65, 66, 67, 68, 80, 81, 82, 83, 84, 96, 97, 98, 99, 100, 1, 2, 3, 4, 5, 6, 8, 17, 19});
+	LayerHandler::set_flags(LayerHandler::SOLID, {64, 65, 66, 67, 68, 80, 81, 82, 83, 84, 96, 97, 98, 99, 100, 1, 2, 3, 4, 5, 6, 8, 16, 17, 19, 107});
 	LayerHandler::set_flags(LayerHandler::WATER, {31, 112, 113, 114, 115, 116});
 	LayerHandler::set_flags(LayerHandler::WALL, {20, 21, 22});
 	LayerHandler::set_flags(LayerHandler::OBJECTS, {36});

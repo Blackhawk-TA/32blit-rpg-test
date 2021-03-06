@@ -3,18 +3,14 @@
 //
 
 #include "player.hpp"
-#include "utils/layer_handler.hpp"
 #include "utils/utils.hpp"
 
 using namespace blit;
 
-constexpr uint8_t tile_set_x_pos = 15;
-constexpr uint8_t tile_set_y_pos = 8;
-constexpr uint8_t player_width = 1;
-constexpr uint8_t player_height = 1;
-
 Player::Player() {
-	Player::absolute_position = Point(1, 0);
+	Player::absolute_position = Point(0, 0);
+	Player::camera = Vec2(absolute_position.x, absolute_position.y);
+	Player::camera_offset = Player::camera;
 }
 
 void Player::move_up() {
@@ -38,36 +34,35 @@ void Player::move_right() {
 }
 
 void Player::move(Point player_movement) {
-	//TODO check if player can move
 	Point next_position = absolute_position + player_movement;
-	//relative_position is relative use world_to_screen method
-	if (LayerHandler::get_flag(next_position) == LayerHandler::SOLID) {
-//		relative_position += movement; //TODO relative position komplett entfernen
-		absolute_position += movement; //TODO absolute position darf nicht geändert werden weil es darauf basierend rendert, LSG: auf anderem wert rendern, am besten fall screen zentrum bzw neue variable mit camera position einführen
-	}
+//	if (LayerHandler::get_flag(next_position) == LayerHandler::SOLID) {
+		camera_offset += movement;
+		absolute_position = next_position;
+//	}
 
 	movement = Point(0, 0);
 }
 
 void Player::draw() {
-	//TODO find better way to select sprite from tile set
-	//TODO render sprite based on camera position (preferable in the middle) instead of using absolute_position
-	screen.sprite(Rect(tile_set_x_pos, tile_set_y_pos, player_width, player_height), pixel(absolute_position)); //TODO change to middle of screen
+	screen.sprite(
+		Rect(tile.x, tile.y, size.x, size.y),
+		Point(screen.bounds.w / 2.0f, screen.bounds.h / 2.0f)
+	);
 }
 
-Vec2 Player::update_camera() { //TODO rounding issue when moving
-	if(camera.x < relative_position.x) { //TODO absolute position zu relativer durch berechnung machen, evtl movement benutzen
-		camera.x += 0.1f;
+Vec2 Player::update_camera() { //TODO rounding issue when moving, see TODO.txt in documents folder
+	if(camera.x < camera_offset.x) {
+		camera.x += velocity;
 	}
-	if(camera.x > relative_position.x) {
-		camera.x -= 0.1f;
+	if(camera.x > camera_offset.x) {
+		camera.x -= velocity;
 	}
-	if(camera.y < relative_position.y) {
-		camera.y += 0.1f;
+	if(camera.y < camera_offset.y) {
+		camera.y += velocity;
 	}
-	if(camera.y > relative_position.y) {
-		camera.y -= 0.1f;
+	if(camera.y > camera_offset.y) {
+		camera.y -= velocity;
 	}
 
-	return Vec2(camera.x, camera.y);
+	return world_to_screen(camera.x, camera.y);
 }

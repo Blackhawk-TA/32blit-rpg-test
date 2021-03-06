@@ -8,6 +8,7 @@ using namespace blit;
 Player *player;
 
 Mat3 camera;
+Vec2 player_camera;
 std::function<Mat3(uint8_t)> level_line_interrupt_callback = [](uint8_t y) -> Mat3 {
 	return camera;
 };
@@ -24,10 +25,10 @@ void init() {
 
 	LayerHandler::generate_map();
 
-	LayerHandler::set_flags(LayerHandler::SOLID, {65, 66, 67, 68, 69, 81, 82, 83, 84, 85, 97, 98, 99, 100, 101, 2, 3, 4, 5, 6, 7, 20});
-	LayerHandler::set_flags(LayerHandler::WATER, {32, 113, 114, 115, 116, 117});
-	LayerHandler::set_flags(LayerHandler::WALL, {21, 22, 23});
-	LayerHandler::set_flags(LayerHandler::OBJECTS, {37});
+	LayerHandler::set_flags(LayerHandler::SOLID, {64, 65, 66, 67, 68, 80, 81, 82, 83, 84, 96, 97, 98, 99, 100, 1, 2, 3, 4, 5, 6, 8, 17, 19});
+	LayerHandler::set_flags(LayerHandler::WATER, {31, 112, 113, 114, 115, 116});
+	LayerHandler::set_flags(LayerHandler::WALL, {20, 21, 22});
+	LayerHandler::set_flags(LayerHandler::OBJECTS, {36});
 
 	player = new Player();
 }
@@ -67,8 +68,9 @@ void render(uint32_t time) {
 void update_camera(uint32_t time) {
 	camera = Mat3::identity();
 
-	Vec2 player_camera = player->update_camera();
-	camera *= Mat3::translation(Vec2(player_camera.x * 8.0f, player_camera.y * 8.0f));
+	player_camera = player->update_camera();
+	camera *= Mat3::translation(player_camera);
+	camera *= Mat3::translation(Vec2(-screen.bounds.w/ 2.0f, -screen.bounds.h / 2.0f)); // transform to centre of framebuffer
 }
 
 ///////////////////////////////////////////////////////////////////////////

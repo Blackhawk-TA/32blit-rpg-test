@@ -20,13 +20,16 @@ public:
 	Vec2 update_camera();
 
 private:
-	Point relative_position; //The position on the grid relative to the starting position
+	const Point size = Point(1, 1);
+	const Point tile = Point(15, 8);
+	const float velocity = 0.05f;
+
+	Point camera_offset; //The position on the grid relative to the starting position
 	Point absolute_position; //The absolut position on the grid
 	Point movement;
 	Vec2 camera;
 
 	void move(Point player_movement);
 };
-
 
 #endif //RPG_TEST_PLAYER_HPP

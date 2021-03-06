@@ -65,7 +65,7 @@ void LayerHandler::draw_map(std::function<Mat3(uint8_t)> *level_line_interrupt_c
 	}
 }
 
-////
+///////////////////////////////////////////////////////////////////////////
 //
 // Gets the flag of the given tile on its highest layer, ignoring all underlying flags
 //
@@ -85,7 +85,7 @@ uint8_t LayerHandler::get_flag(Point p) {
 			j++;
 			k = 0;
 			while (!flag_found && k < flags[j].size()) {
-				if (tile_id == flags[j].at(k) - 1) {
+				if (tile_id == flags[j].at(k)) {
 					flag_enum_id = j;
 					flag_found = true;
 				}

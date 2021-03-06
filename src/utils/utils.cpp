@@ -6,24 +6,22 @@
 
 using namespace blit;
 
-Point tile(const Point &p) {
+Point screen_to_world(const Point &p) {
 	return Point(p.x / tile_size, p.y / tile_size);
 }
 
-Point pixel(const Point &p) {
+Vec2 screen_to_world(const Vec2 &p) {
+	return Vec2(p.x / tile_size, p.y / tile_size);
+}
+
+Point world_to_screen(const Point &p) {
 	return Point(p.x * tile_size, p.y * tile_size);
 }
 
-Point world_to_screen(const Point &p) { //TODO implement
-	return Point(
-		p.x + screen.bounds.w,
-		p.y + screen.bounds.h
-	);
+Vec2 world_to_screen(const Vec2 &p) {
+	return Vec2(p.x * tile_size, p.y * tile_size);
 }
 
-Point screen_to_world(const Point &p) { //TODO implement
-	return Point(
-		0,
-		0
-	);
+Vec2 world_to_screen(const float &x, const float &y) {
+	return Vec2(x * tile_size, y * tile_size);
 }

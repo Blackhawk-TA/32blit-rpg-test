@@ -6,7 +6,7 @@ assets.cpp:
   prefix: asset_
 
   assets/spritesheet.png:
-    name: sprites
+    name: spritesheet
   assets/map.tmx:
     name: map
     empty_tile: 0

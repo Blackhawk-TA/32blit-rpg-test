@@ -51,7 +51,7 @@ void Player::draw() {
 	);
 }
 
-Vec2 Player::update_camera() { //TODO rounding issue when moving, see TODO.txt in documents folder
+Vec2 Player::update_camera() {
 	if(camera.x < camera_offset.x) {
 		camera.x += velocity;
 	}

@@ -5,6 +5,7 @@
 
 using namespace blit;
 
+float ms_start, ms_end;
 Player *player;
 
 Mat3 camera;
@@ -56,14 +57,14 @@ void draw_fps(float ms_start, float ms_end) {
 // amount if milliseconds elapsed since the start of your game
 //
 void render(uint32_t time) {
-	float ms_start = now();
+	ms_start = now();
 
 	screen.clear();
 
 	LayerHandler::draw_map(&level_line_interrupt_callback);
 	player->draw();
 
-	float ms_end = now();
+	ms_end = now();
 	draw_fps(ms_start, ms_end);
 }
 

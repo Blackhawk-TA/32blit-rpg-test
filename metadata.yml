@@ -5,6 +5,6 @@ splash:
   file: assets/no-image.png
 icon:
   file: assets/no-icon.png
-version: v0.0.1
-category: game # game, demo, utility, ...
+version: v0.0.4
+category: game
 url: https://github.com/Blackhawk-TA/32blit-rpg-test

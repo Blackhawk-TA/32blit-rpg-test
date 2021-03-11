@@ -22,12 +22,13 @@ public:
 private:
 	const Point size = Point(1, 1);
 	const Point tile = Point(15, 8);
-	const float velocity = 0.05f;
+	const uint8_t velocity = 5;
 
-	Point camera_offset;
+	Vec2 camera_offset;
 	Point absolute_position; //The absolut position of the player on the grid
-	Point movement;
+	Vec2 movement;
 	Vec2 camera;
+	bool is_moving = false;
 
 	void move(Point player_movement);
 };

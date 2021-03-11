@@ -24,12 +24,13 @@ private:
 	const Point tile = Point(15, 8);
 	const uint8_t velocity = 5;
 
-	Vec2 camera_offset;
+	Point camera_offset;
 	Point absolute_position; //The absolut position of the player on the grid
-	Vec2 camera;
+	Point camera;
 	bool is_moving = false;
+	bool moved = false;
 
-	void move(Vec2 player_movement);
+	void move(Point player_movement);
 };
 
 #endif //RPG_TEST_PLAYER_HPP

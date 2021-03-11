@@ -6,7 +6,7 @@
 
 using namespace blit;
 
-//TODO optimize division by replacing it with multiplication if used in renderer
+//TODO optimize division by replacing it with multiplication if used in renderer DONT: IT BREAKS MATH
 Point screen_to_world(const Point &p) {
 	return Point(p.x / tile_size, p.y / tile_size);
 }

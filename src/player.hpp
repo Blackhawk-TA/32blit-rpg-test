@@ -26,11 +26,10 @@ private:
 
 	Vec2 camera_offset;
 	Point absolute_position; //The absolut position of the player on the grid
-	Vec2 movement;
 	Vec2 camera;
 	bool is_moving = false;
 
-	void move(Point player_movement);
+	void move(Vec2 player_movement);
 };
 
 #endif //RPG_TEST_PLAYER_HPP

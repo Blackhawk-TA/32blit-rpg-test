@@ -15,34 +15,30 @@ Player::Player() {
 }
 
 void Player::move_up() {
-	movement.y = -1;
-	move(movement);
+	move(Vec2(0, -1));
 }
 
 void Player::move_down() {
-	movement.y = 1;
-	move(movement);
+	move(Vec2(0, 1));
 }
 
 void Player::move_left() {
-	movement.x = -1;
-	move(movement);
+	move(Vec2(-1, 0));
 }
 
 void Player::move_right() {
-	movement.x = 1;
-	move(movement);
+	move(Vec2(1, 0));
 }
 
-void Player::move(Point player_movement) {
+void Player::move(Vec2 player_movement) {
 	Point next_position = absolute_position + player_movement;
 	if (!is_moving && LayerHandler::get_flag(next_position) == LayerHandler::SOLID) {
-		camera_offset = movement; //TODO movement and offset are equal currently
+		//TODO rename camera_offset (name is required later for map border cam offset)
+		//TODO rename to movement_offset and make movement Vector obsolete
+		camera_offset = player_movement;
 		absolute_position = next_position;
 		is_moving = true;
 	}
-
-	movement = Vec2(0, 0);
 }
 
 void Player::draw() {
@@ -52,7 +48,7 @@ void Player::draw() {
 	);
 }
 
-Vec2 Player::update_camera() {
+Vec2 Player::update_camera() { //TODO set camera and its offset scale to 100 within the entire class and only convert on return
 	if (!is_moving) {
 		return world_to_screen(camera.x, camera.y);
 	}

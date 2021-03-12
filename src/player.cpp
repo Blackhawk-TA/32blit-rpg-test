@@ -57,30 +57,19 @@ Vec2 Player::update_camera() {
 		return world_to_screen(camera.x / 100.0f, camera.y / 100.0f);
 	}
 
-	moved = false;
-
 	if (camera.x < camera.x + camera_offset.x) {
 		camera.x += velocity;
 		camera_offset.x -= velocity;
-		moved = true;
-	}
-	if (!moved && camera.x > camera.x + camera_offset.x) {
+	} else if (camera.x > camera.x + camera_offset.x) {
 		camera.x -= velocity;
 		camera_offset.x += velocity;
-		moved = true;
-	}
-	if (!moved && camera.y < camera.y + camera_offset.y) {
+	} else if (camera.y < camera.y + camera_offset.y) {
 		camera.y += velocity;
 		camera_offset.y -= velocity;
-		moved = true;
-	}
-	if (!moved && camera.y > camera.y + camera_offset.y) {
+	} else if (camera.y > camera.y + camera_offset.y) {
 		camera.y -= velocity;
 		camera_offset.y += velocity;
-		moved = true;
-	}
-
-	if (!moved) {
+	} else {
 		is_moving = false;
 		camera_offset = Point(0, 0);
 	}

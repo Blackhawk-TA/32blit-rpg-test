@@ -1,9 +1,6 @@
 //
 // Created by daniel on 28.02.21.
 //
-
-#pragma once
-
 #include "32blit.hpp"
 
 #ifndef RPG_TEST_LAYER_HANDLER_HPP

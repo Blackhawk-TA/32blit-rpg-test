@@ -3,7 +3,6 @@
 //
 
 #include <cstring>
-#include <iostream>
 #include "assets.hpp"
 #include "layer_handler.hpp"
 

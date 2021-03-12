@@ -16,18 +16,6 @@ std::array<std::vector<uint8_t>, layer_count> flags;
 uint8_t *layer_data[layer_count];
 TileMap *layers[layer_count];
 
-#pragma pack(push,1)
-struct TMX {
-	char head[4];
-	uint8_t empty_tile;
-	uint16_t width;
-	uint16_t height;
-	uint8_t layers;
-	uint8_t data[];
-};
-#pragma pack(pop)
-
-
 void LayerHandler::generate_map() {
 	TMX *tmx = (TMX *)asset_map;
 
@@ -49,14 +37,6 @@ void LayerHandler::generate_map() {
 			}
 		}
 	}
-
-	//TODO remove; Letzte zeile wird an den anfang gehängt
-//	for (auto y = 0u; y < tmx->height; y++) {
-//		for (auto x = 0u; x < tmx->width; x++) {
-//			std::cout << std::to_string(layers[0]->tile_at(Point(x, y))) + ", ";
-//		}
-//		std::cout << std::endl;
-//	}
 }
 
 void LayerHandler::draw_map(std::function<Mat3(uint8_t)> *level_line_interrupt_callback) {

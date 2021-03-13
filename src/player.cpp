@@ -13,8 +13,8 @@ using namespace blit;
  * Calculates camera position in scale 100x to prevent float rounding issues
  */
 Player::Player() {
-	Player::absolute_position = Point(0, 0);
-	Player::camera = Point(absolute_position.x * 100, absolute_position.y * 100);
+	Player::position = Point(0, 0);
+	Player::camera = Point(0, 0);
 	Player::camera_offset = Point(0, 0);
 }
 
@@ -35,12 +35,12 @@ void Player::move_right() {
 }
 
 void Player::move(Point player_movement) {
-	Point next_position = absolute_position + player_movement;
+	Point next_position = position + player_movement;
 	if (!is_moving && LayerHandler::get_flag(next_position) == LayerHandler::SOLID) {
 		//TODO rename camera_offset (name is required later for map border cam offset)
 		//TODO rename to movement_offset and make movement Vector obsolete
 		camera_offset = player_movement * 100;
-		absolute_position = next_position;
+		position = next_position;
 		is_moving = true;
 	}
 }

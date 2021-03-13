@@ -34,7 +34,7 @@ void init() {
 	player = new Player();
 }
 
-void draw_fps(float ms_start, float ms_end) {
+void draw_fps() {
 	screen.alpha = 255;
 	screen.pen = Pen(255, 255, 255, 100);
 	screen.rectangle(Rect(1, 120 - 10, 20, 9));
@@ -65,7 +65,7 @@ void render(uint32_t time) {
 	player->draw();
 
 	ms_end = now();
-	draw_fps(ms_start, ms_end);
+	draw_fps();
 }
 
 void update_camera(uint32_t time) {

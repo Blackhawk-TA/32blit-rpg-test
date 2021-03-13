@@ -25,7 +25,7 @@ private:
 	const uint8_t velocity = 5;
 
 	Point camera_offset;
-	Point absolute_position; //The absolut position of the player on the grid
+	Point position;
 	Point camera;
 	bool is_moving = false;
 

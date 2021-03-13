@@ -73,7 +73,7 @@ void update_camera(uint32_t time) {
 
 	player_camera = player->update_camera();
 	camera *= Mat3::translation(player_camera);
-	camera *= Mat3::translation(Vec2(-screen.bounds.w / 2.0f, -screen.bounds.h / 2.0f)); // transform to centre of framebuffer
+//	camera *= Mat3::translation(Vec2(-screen.bounds.w / 2.0f, -screen.bounds.h / 2.0f)); // transform to centre of framebuffer
 }
 
 ///////////////////////////////////////////////////////////////////////////

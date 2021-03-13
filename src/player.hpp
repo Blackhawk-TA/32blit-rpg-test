@@ -24,9 +24,11 @@ private:
 	const Point tile = Point(15, 8);
 	const uint8_t velocity = 5;
 
-	Point camera_offset;
+	Point start_position;
 	Point position;
+	Point position_offset;
 	Point camera;
+	Point camera_offset;
 	bool is_moving = false;
 
 	void move(Point player_movement);

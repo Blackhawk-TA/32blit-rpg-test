@@ -10,6 +10,9 @@
 using namespace blit;
 
 constexpr uint8_t tile_size = 8;
+constexpr uint8_t level_width = 64;
+constexpr uint8_t level_height = 64;
+constexpr uint32_t level_size = level_width * level_height;
 
 Point screen_to_world(const Point &p);
 Vec2 screen_to_world(const Vec2 &p);

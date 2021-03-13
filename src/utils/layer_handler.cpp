@@ -5,11 +5,9 @@
 #include <cstring>
 #include "assets.hpp"
 #include "layer_handler.hpp"
+#include "utils.hpp"
 
 constexpr uint8_t layer_count = 4;
-constexpr uint16_t level_width = 64;
-constexpr uint16_t level_height = 64;
-constexpr uint32_t level_size = level_width * level_height;
 
 std::array<std::vector<uint8_t>, layer_count> flags;
 uint8_t *layer_data[layer_count];

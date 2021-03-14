@@ -41,7 +41,7 @@ void Player::move_right() {
 
 void Player::move(Point player_movement) {
 	Point next_position = position + player_movement;
-	if (!is_moving /*&& LayerHandler::get_flag(next_position) == LayerHandler::SOLID*/) {
+	if (!is_moving && LayerHandler::get_flag(next_position) == LayerHandler::SOLID) {
 		camera_offset = player_movement * camera_scale;
 		position = next_position;
 		is_moving = true;

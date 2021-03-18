@@ -18,7 +18,7 @@ make
 32blit:
 ```
 mkdir build.stm32
-cd stm32
+cd build.stm32
 cmake .. -DCMAKE_TOOLCHAIN_FILE="../32blit-sdk/32blit.toolchain"
 make rpg-test
 ```

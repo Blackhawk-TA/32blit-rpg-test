@@ -46,7 +46,7 @@ void LayerHandler::draw_map(std::function<Mat3(uint8_t)> *level_line_interrupt_c
 //
 // Gets the flag of the given tile on its highest layer, ignoring all underlying flags
 //
-uint8_t LayerHandler::get_flag(Point &p) {
+uint8_t LayerHandler::get_flag(Point p) {
 	uint8_t i = layer_count;
 	uint8_t j, k;
 	uint8_t tile_id;

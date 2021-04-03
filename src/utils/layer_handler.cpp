@@ -8,8 +8,9 @@
 #include "utils.hpp"
 
 constexpr uint8_t layer_count = 4;
+constexpr uint8_t flag_count = 4;
 
-std::array<std::vector<uint8_t>, layer_count> flags;
+std::array<std::vector<uint8_t>, flag_count> flags;
 uint8_t *layer_data[layer_count];
 TileMap *layers[layer_count];
 
